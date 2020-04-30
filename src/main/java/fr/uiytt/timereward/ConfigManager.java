@@ -6,7 +6,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ConfigManager {
 
-	public static final String ConfigLink = "http://random";
+	public static final String ConfigLink = "https://raw.githubusercontent.com/uiytt/TimeReward/master/config.yml";
 	private Yaml yaml;
 	private int time_for_money;
 	private double money_reward;
@@ -14,10 +14,11 @@ public class ConfigManager {
 	
 	
 	public ConfigManager() {
-		this.yaml = new Config("config","plugins/TimeReward");
+		
 	}
 	
 	public void load() {
+		this.yaml = new Config("config","plugins/TimeReward");
 		time_for_money = yaml.getOrSetDefault("time_for_money", 60);
 		money_reward = yaml.getOrSetDefault("money_reward", 20.0);
 	}

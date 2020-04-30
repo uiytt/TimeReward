@@ -11,7 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.earth2me.essentials.Essentials;
+
 import de.leonhard.storage.Json;
+import net.ess3.api.IUser;
 import net.milkbowl.vault.economy.Economy;
 
 public class Main extends JavaPlugin {
@@ -20,9 +23,14 @@ public class Main extends JavaPlugin {
 	public static final ConfigManager CONFIG = new ConfigManager();
 	public static final Json DATASTORAGE = new Json("data","plugins/TimeReward");
 	private static HashMap<Player, Integer> time_playersonline = new HashMap<Player, Integer>();
+	private static JavaPlugin instance;
+	
 	
 	@Override
 	public void onEnable() {
+		
+		instance = this;
+		
 		//Setup the Economy using Vault
 		if (!setupEconomy()) {
             this.getLogger().severe("Disabled due to no Vault and Economy dependency found!");
@@ -31,7 +39,6 @@ public class Main extends JavaPlugin {
         }
 		File configFile = new File(this.getDataFolder().getAbsolutePath() + File.separator + "config.yml");
 		configFile.getParentFile().mkdirs();
-		
 		
 		if(!configFile.exists()) {
 			getLogger().fine("Config.yml not found, Downloading...");
@@ -76,5 +83,11 @@ public class Main extends JavaPlugin {
 
 	public static Economy getEcon() {
 		return econ;
+	}
+
+
+
+	public static JavaPlugin getInstance() {
+		return instance;
 	}
 }

@@ -3,5 +3,5 @@ name: TimeReward
 version: 0.1
 author: uiytt
 description: A simple plugin that give money when you play enough
-
-
+softdepend:
+- EssentialsX
