@@ -1,0 +1,7 @@
+main: fr.uiytt.timereward.Main
+name: TimeReward
+version: ${project.version}
+author: uiytt
+description: A simple plugin that give money when you play enough
+
+
