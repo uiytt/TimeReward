@@ -4,4 +4,4 @@ version: ${project.version}
 author: uiytt
 description: A simple plugin that give money when you play enough
 softdepend:
-- EssentialsX
+- Essentials
