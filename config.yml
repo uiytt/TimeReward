@@ -6,9 +6,9 @@
 #
 #How much time the player must be connected in minutes to receive the money
 time_for_money: 60
-
+#
 #How much the player receive when he was conected enough ?
 money_reward: 20.0
-
+#
 #If time when afk count as "online" for the money (only work currently with Essentials(X), Contact me for more)
 allow_reward_afk: false
