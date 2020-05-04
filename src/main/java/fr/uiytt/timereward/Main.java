@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,7 +19,7 @@ public class Main extends JavaPlugin {
 	private static Economy econ;
 	public static final ConfigManager CONFIG = new ConfigManager();
 	public static final Json DATASTORAGE = new Json("data","plugins/TimeReward");
-	private static HashMap<Player, Integer> time_playersonline = new HashMap<Player, Integer>();
+	private static HashMap<String, Integer> time_playersonline = new HashMap<String, Integer>();
 	private static JavaPlugin instance;
 	
 	
@@ -56,6 +55,14 @@ public class Main extends JavaPlugin {
 		//Register Listener
 		this.getServer().getPluginManager().registerEvents(new EventsListener(), this);
 		
+		//Basic protection for /reload, because if a player is connected during /reload, it will never fire the onJoin event
+		//This auto register players connected during /reload
+		Bukkit.getOnlinePlayers().forEach(player -> {
+			Integer time = Main.DATASTORAGE.getOrSetDefault(player.getUniqueId().toString(), 0);
+			Main.getTimePlayersonline().put(player.getName(), time);
+		});
+		
+		
 		//Register BukkitRunnable (that will run every minute)
 		new EveryMinute().runTaskTimerAsynchronously(this, 20, 20 * 60);
 		
@@ -78,7 +85,7 @@ public class Main extends JavaPlugin {
 	
 	
 
-	public static HashMap<Player, Integer> getTimePlayersonline() {
+	public static HashMap<String, Integer> getTimePlayersonline() {
 		return time_playersonline;
 	}
 

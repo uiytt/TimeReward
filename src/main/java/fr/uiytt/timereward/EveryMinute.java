@@ -13,7 +13,7 @@ public class EveryMinute extends BukkitRunnable {
 		Bukkit.getOnlinePlayers().forEach(player -> {
 			boolean increment = true;
 			//get time
-			int time = Main.getTimePlayersonline().get(player);
+			int time = Main.getTimePlayersonline().get(player.getName());
 			
 			//Detect if the config allow afk player to receive money and if essentials is detected
 			if(!Main.CONFIG.isAllow_reward_afk() && Bukkit.getPluginManager().isPluginEnabled("essentials")) {
@@ -30,14 +30,14 @@ public class EveryMinute extends BukkitRunnable {
 				time++;
 			}
 			
-			if(time == Main.CONFIG.getTime_for_money()) {
+			if(time >= Main.CONFIG.getTime_for_money()) {
 				//reset and send money
 				time = 0;
 				player.sendMessage(Main.CONFIG.HEADER + " Tu as gagné " + String.valueOf(money_reward) + " " + Main.getEcon().currencyNamePlural());
 				Main.getEcon().depositPlayer(player, money_reward);
 			}
 			//Save new time
-			Main.getTimePlayersonline().put(player, time);
+			Main.getTimePlayersonline().put(player.getName(), time);
 		});
 
 	}
